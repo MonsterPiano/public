@@ -33,6 +33,7 @@ Commands are:
 * C - Call RPC function
 * R - RPC Response (text/binary based on opcode)
 * X - Subscribe to events.  Types listed below.
+* Z - Debug messages
 
 # Event Subscription
 
@@ -45,6 +46,7 @@ There are two ways to subscribe to events.  The first is at connection time.  Th
 * 0x10 - Hardware add/remove events - When octaves are added or removed, or Piano is otherwise resized - NOT 
 IMPLEMENTED -
 * 0x20 - Property Change Notification - receive notification of all property changes
+* 0x40 - Debug messages
 
 ## X Subscribe command
 
@@ -56,11 +58,13 @@ The Monster Piano software is devided into modules.  Each module provides it's o
 
 "S" and "P" commands follow the same format:
 
-SModule.Property=Value
+S\n
+Module.Property=Value
 
 Optionally, multiple properties may be set in the same message:
 
-SModule.Property=Value\n
+S\n
+Module.Property=Value\n
 Module2.Property2=Value2\n
 Module3.Property3=Value3
 
@@ -219,3 +223,7 @@ NnV, FnV, Nn, Fn
 N="N", F="F", n=MIDI note number, V=MIDI velocity
 
 The Piano will always attach a velocity.  I'm not sure that a command without velocity even makes sense in this case.
+
+# Debug messages
+
+Debug messages have a command byte of 'Z'.  The rest of the message is the debug text.  There is no special formatting for the remainder of the message, it is just human-readable text.
