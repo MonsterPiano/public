@@ -33,6 +33,7 @@ Commands are:
 * C - Call RPC function
 * R - RPC Response (text/binary based on opcode)
 * X - Subscribe to events.  Types listed below.
+* M - User message
 * Z - Debug messages
 
 # Event Subscription
@@ -223,6 +224,10 @@ NnV, FnV, Nn, Fn
 N="N", F="F", n=MIDI note number, V=MIDI velocity
 
 The Piano will always attach a velocity.  I'm not sure that a command without velocity even makes sense in this case.
+
+# User messages
+
+User messages have a command byte of 'M'.  The rest of the message is the text.  There is no special formatting for the remainder of the message, it is just human-readable text.  The client should display the message for the user to see.
 
 # Debug messages
 
